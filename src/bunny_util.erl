@@ -186,21 +186,21 @@ connect() ->
     connect(direct).
 
 connect(direct) ->
-    connect({direct, #amqp_params{}});
-connect({Type, Params}) when is_record(Params, amqp_params) ->
+    connect({direct, #amqp_params_network{}});
+connect({Type, Params}) when is_record(Params, amqp_params_network) ->
     {ok, Connection} = amqp_connection:start(Type, Params),
     {ok, Channel} = amqp_connection:open_channel(Connection),
     {ok, {Connection, Channel}};
 connect({network, Host}) ->
-    connect({network, #amqp_params{host=Host}});
+    connect({network, #amqp_params_network{host=Host}});
 connect({network, Host, Port}) ->
-    connect({network, #amqp_params{host=Host, port=Port}});
+    connect({network, #amqp_params_network{host=Host, port=Port}});
 connect({network, Host, Port, {User, Pass}}) ->
-    connect({network, #amqp_params{host=Host, port=Port,
+    connect({network, #amqp_params_network{host=Host, port=Port,
                                    username=User,
                                    password=Pass}});
 connect({network, Host, Port, {User, Pass}, VHost}) ->
-    connect({network, #amqp_params{host=Host, port=Port,
+    connect({network, #amqp_params_network{host=Host, port=Port,
                                    username=User,
                                    password=Pass,
                                    virtual_host=VHost}}).
